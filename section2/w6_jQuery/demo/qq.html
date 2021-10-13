@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟QQ发送消息</title>
+    <style>
+        .shu{
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+        input{
+            width: 500px;
+            height: 30px;
+            border: solid #222 1px;
+            position: absolute;
+            left: 300px;
+            top: 500px;
+
+        }
+        button{
+            width: 50px;
+            position: absolute;
+            left: 300px;
+            top: 540px;
+        }
+        .k{
+            width: 1000px;
+            height: 470px;
+            position: absolute;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="shu">
+        <div class="k"></div>
+        <input type="text">
+        <button>发送</button>
+    </div>
+
+    <script src="js/jquery-3.1.1.js"></script>
+    <script>
+        jQuery(function($){
+            const $int = $('input')          
+            $('button').on('click',function(){
+                console.log(123);
+                $('.k').append(`${$int.val()}<hr/>`)
+                $int.val('')
+            })
+        })
+    </script>
+</body>
+</html>

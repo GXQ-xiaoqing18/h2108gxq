@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页练习</title>
+    <style>
+        li {
+            list-style: none;
+        }
+
+        #goodslist li {
+            float: left;
+            width: 200px;
+            height: 460px;
+            margin: 10px;
+        }
+
+        #goodslist li img {
+            width: 100%;
+        }
+
+        .price del {
+            color: #666;
+            margin-right: 5px;
+        }
+
+        .price span {
+            color: #f00;
+        }
+
+        .price del::before,
+        .price span::before {
+            content: '￥'
+        }
+    </style>
+    <script src="./utils/to.js"></script>
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <select id="category">
+
+    </select>
+    <div id="goodslist">
+
+    </div>
+    <script src="./utils/tools.js"></script>
+
+    <script>
+        /*  
+            接口文档：https://easydoc.net/s/58934052
+                > 接口文档一般由后端开发工程师编写，但需要每个前端开发人员会使用接口文档
+            * 商品列表
+                * 地址（数据地址）：http://120.76.247.5:2003/api/goods
+            * 商品分类
+                * 地址：http://120.76.247.5:2003/api/category
+
+            * 前后端数据格式：字符串
+                * json
+                * xml（了解）
+            
+        */
+        const goodslist = document.querySelector('#goodslist')
+        const category = document.querySelector('#category')
+
+        // 获取商品列表
+        const goodslistHandle = function ({ data }) {
+            const lis = data.result.map(
+                item => {
+                    // item:每一条数据
+                    return `<li class="goods" data-id="${item._id}" data-my-age="18" data-username="laoxie">
+                    <img src="http://120.76.247.5:2003${item.img_url}" />
+                    <h4>${item.goods_name}</h4>
+                    <p>分类：${item.category}</p>
+                    <p class="price"><del>${item.price}</del><span>${item.sales_price}</span></p>
+                </li>`
+                }
+            )
+            goodslist.innerHTML = lis.join("")
+        }
+        request('/goods?category=女士表', goodslistHandle)
+
+        
+        // 点击进入商品详情页
+        goodslist.onclick=function({target}){
+            if(target.tagName === 'IMG'){
+               // 获取点击商品id
+               const currentLi = target.parentElement;
+               // dataset: 自定义属性集合
+               const{id}=currentLi.dataset
+               location.href="goodslx.html?id="+id
+            }
+        }
+
+        // 获取商品分类
+        request('/category', ({ data }) => {
+            category.innerHTML = data.result.map(
+                item => {
+                    return `<option value="${item.text}">${item.text}</option>`
+                }
+            ).join('')
+        })
+
+         // 根据分类显示相应的数据
+         category.onchange=function(){
+             const cat =this.value;
+             console.log('cat',cat);
+             request('/goods?category='+cat,goodslistHandle)
+         }
+    </script>
+
+</body>
+
+</html>

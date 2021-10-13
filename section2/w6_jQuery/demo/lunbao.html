@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQ轮播图</title>
+    <link rel="stylesheet" href="./css/banner.css">
+</head>
+<body>
+    <div class="banner">
+
+        <!-- 轮播图 -->
+        <ul class="imgBox clearFix">
+        </ul>
+
+        <!-- 指示器存放处 -->
+        <ol class="pointBox"></ol>
+
+        <div class="leftRightTabs">
+            <a class="left"> &lt; </a>
+            <a class="right"> &gt; </a>
+        </div>
+
+    </div>
+    <div class="b">
+        <button id="btn1">点击换肤</button>
+        <button id="btn2">随机换肤</button>
+    </div>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script>
+        jQuery(function($){
+            const imgs = ["./mage/01.webp", "./mage/02.webp", "./mage/03.webp", "./mage/04.webp", "./mage/05.webp", "./mage/06.webp", "./mage/07.webp", "./mage/08.webp", "./mage/09.webp"]
+            const $imgBox = $('.imgBox')
+            const $pointBox = $('.pointBox')
+            // console.log($imgBox);
+            // 写入图片
+            imgs.forEach(function(item){
+                $imgBox.append(`<li><img src="${item}"></li>`)
+                $pointBox.append(`<li><a><img src="${item}"></a></li>`)
+
+            })
+
+            
+            
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情页面练习</title>
+    <style>
+        img {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/comm.css">
+</head>
+
+<body>
+    <h1>商品详情页面练习</h1>
+    <div id="datail"></div>
+    <button id="add2cat">添加购物车</button>
+    <button id="buynow">立即购买</button>
+    <script src="./utils/to.js"></script>
+
+    <script>
+        
+        // 获取url地址中的id
+        //   const searchParams = location.search.slice(1);
+        //   const[key,id]=searchParams.split('=')
+        // const params = searchParams.split('&')
+        // console.log(params);
+        // const data={}
+        // params.forEach(item=>{
+        //     const [key,value]=item.split('=')
+        //     data[key]=value
+        // })
+        // console.log('data=',data);
+
+        const datail = document.querySelector('#datail')
+        const params = new URLSearchParams(location.search)
+        const id = params.get('id')
+        // console.log(id);
+
+        // 根据id请求商品信息
+        // request('/goods/' + id, function ({ data }) {
+        //     console.log('data=', data);
+        //     return datail.innerHTML = `<li class="goods">
+        //             <img src="http://120.76.247.5:2003${data.big_img_url}" />
+        //             <h4>${data.goods_name}</h4>
+        //             <p>分类：${data.category}</p>
+        //             <p class="price"><del>${data.price}</del><span>${data.sales_price}</span></p>
+        //         </li>`
+
+        // })
+
+        async function get(){
+            const {data} = await ajax('/goods/'+id)
+            datail.innerHTML = `<li class="goods">
+                    <img src="http://120.76.247.5:2003${data.big_img_url}" />
+                    <h4>${data.goods_name}</h4>
+                    <p>分类：${data.category}</p>
+                    <p class="price"><del>${data.price}</del><span>${data.sales_price}</span></p>
+                </li>`
+        }
+        get()
+
+        // const promise = ajax('/goods/'+id)
+        // promise.then(function({data}){
+        //     datail.innerHTML = `<li class="goods">
+        //             <img src="http://120.76.247.5:2003${data.big_img_url}" />
+        //             <h4>${data.goods_name}</h4>
+        //             <p>分类：${data.category}</p>
+        //             <p class="price"><del>${data.price}</del><span>${data.sales_price}</span></p>
+        //         </li>`
+        // })
+
+
+    </script>
+</body>
+
+</html>
